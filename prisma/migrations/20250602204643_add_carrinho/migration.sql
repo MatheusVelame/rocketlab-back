@@ -1,0 +1,24 @@
+-- CreateTable
+CREATE TABLE "Produto" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "nome" TEXT NOT NULL,
+    "preco" REAL NOT NULL,
+    "descricao" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Carrinho" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "criadoEm" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "finalizado" BOOLEAN NOT NULL DEFAULT false
+);
+
+-- CreateTable
+CREATE TABLE "ItemCarrinho" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "quantidade" INTEGER NOT NULL,
+    "produtoId" INTEGER NOT NULL,
+    "carrinhoId" INTEGER NOT NULL,
+    CONSTRAINT "ItemCarrinho_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ItemCarrinho_carrinhoId_fkey" FOREIGN KEY ("carrinhoId") REFERENCES "Carrinho" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);

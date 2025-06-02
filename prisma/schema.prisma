@@ -12,4 +12,22 @@ model Produto {
   nome      String
   preco     Float
   descricao String
+  itens     ItemCarrinho[]   // <-- relação inversa
+}
+
+model Carrinho {
+  id         Int            @id @default(autoincrement())
+  criadoEm   DateTime       @default(now())
+  finalizado Boolean        @default(false)
+  itens      ItemCarrinho[]
+}
+
+model ItemCarrinho {
+  id         Int      @id @default(autoincrement())
+  quantidade Int
+  produtoId  Int
+  carrinhoId Int
+
+  produto    Produto  @relation(fields: [produtoId], references: [id])
+  carrinho   Carrinho @relation(fields: [carrinhoId], references: [id])
 }
