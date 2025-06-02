@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Query } from '@nestjs/common';
 import { ProdutoService } from './produto.service';
 import { Produto } from '@prisma/client';
 
@@ -14,6 +14,11 @@ export class ProdutoController {
   @Get()
   findAll() {
     return this.produtoService.findAll();
+  }
+
+  @Get('buscar')
+  search(@Query('nome') nome: string) {
+    return this.produtoService.search(nome);
   }
 
   @Get(':id')

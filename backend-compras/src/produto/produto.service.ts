@@ -4,7 +4,7 @@ import { Produto } from '@prisma/client';
 
 @Injectable()
 export class ProdutoService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   create(data: Omit<Produto, 'id'>) {
     return this.prisma.produto.create({ data });
@@ -22,7 +22,25 @@ export class ProdutoService {
     return this.prisma.produto.update({ where: { id }, data });
   }
 
-  remove(id: number) {
-    return this.prisma.produto.delete({ where: { id } });
+  async remove(id: number) {
+    await this.prisma.itemCarrinho.deleteMany({
+      where: { produtoId: id },
+    });
+
+    return this.prisma.produto.delete({
+      where: { id },
+    });
   }
+
+
+  async search(nome?: string): Promise<Produto[]> {
+    return this.prisma.produto.findMany({
+      where: {
+        nome: {
+          contains: nome,
+        }
+      }
+    });
+  } 
+
 }
