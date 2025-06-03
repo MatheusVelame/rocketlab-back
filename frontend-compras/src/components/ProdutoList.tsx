@@ -1,3 +1,5 @@
+"use client"
+
 import type React from "react"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
@@ -53,6 +55,23 @@ const SearchButton = styled.button`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  }
+`
+
+const ClearButton = styled.button`
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
   }
 `
 
@@ -256,6 +275,11 @@ const ProdutoList: React.FC<Props> = ({ adicionarAoCarrinho, refresh, onRefresh 
     }
   }
 
+  const limparBusca = () => {
+    setBusca("")
+    carregarProdutos()
+  }
+
   return (
     <Container>
       <AdicionarProduto onProdutoAdicionado={carregarProdutos} />
@@ -270,6 +294,7 @@ const ProdutoList: React.FC<Props> = ({ adicionarAoCarrinho, refresh, onRefresh 
           onChange={(e) => setBusca(e.target.value)}
         />
         <SearchButton onClick={buscarProdutos}>Buscar</SearchButton>
+        <ClearButton onClick={limparBusca}>Limpar</ClearButton>
       </SearchContainer>
 
       <ProductGrid>

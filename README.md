@@ -1,98 +1,140 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🛒 Sistema de Compras Online - NestJS + Prisma + React
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este é um projeto completo de um sistema de compras online, desenvolvido com as seguintes tecnologias:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- **Backend:** NestJS (TypeScript) + Prisma ORM + SQLite
+- **Frontend:** React (TypeScript) + Axios + Styled-Components
+- **Banco de dados:** SQLite (persistência leve e local)
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🔥 Funcionalidades
 
-## Project setup
+- ✅ Cadastro de produtos com informações associadas (nome, preço, descrição).
+- ✅ Listagem de produtos cadastrados.
+- ✅ Edição e exclusão de produtos.
+- ✅ Busca de produtos por nome.
+- ✅ Adição de produtos ao carrinho de compras.
+- ✅ Visualização de itens no carrinho.
+- ✅ Escolha da quantidade de itens.
+- ✅ Exclusão de itens do carrinho.
+- ✅ Finalização da compra.
 
-```bash
-$ pnpm install
-```
+---
 
-## Compile and run the project
+## 🚀 Tecnologias Utilizadas
 
-```bash
-# development
-$ pnpm run start
+| Stack | Descrição |
+| ---- | ----------- |
+| **TypeScript** | Linguagem principal do projeto, com tipagem forte e suporte completo no backend e frontend |
+| **NestJS** | Framework backend com arquitetura modular e altamente escalável |
+| **Prisma ORM** | ORM moderno, utilizado com SQLite |
+| **SQLite** | Banco de dados local, leve e eficiente para o projeto |
+| **React** | Frontend moderno e reativo |
+| **Axios** | Comunicação HTTP com o backend |
+| **Styled-Components** | Estilização dos componentes React com CSS-in-JS |
 
-# watch mode
-$ pnpm run start:dev
 
-# production mode
-$ pnpm run start:prod
-```
+---
 
-## Run tests
+## ⚙ Como rodar o projeto
 
-```bash
-# unit tests
-$ pnpm run test
+### 🔧 Pré-requisitos
 
-# e2e tests
-$ pnpm run test:e2e
+- Node.js instalado
+- PNPM instalado
 
-# test coverage
-$ pnpm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 🔨 Clonando o projeto
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+git clone https://github.com/MatheusVelame/rocketlab-back.git
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 💾 Configuração do banco de dados
 
-## Resources
+#### 1. No diretório backend-compras, crie um arquivo **.env**, com o seguinte conteúdo:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+DATABASE_URL="file:./dev.db"
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 📦 Instalando dependências
 
-## Support
+#### 2. Abra dois terminais (um para rodar o Back e o outro para o Front)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Terminal do Backend
 
-## Stay in touch
+#### 3. Entre no diretório do Backend
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+cd rocketlab-back
+cd backend-compras
+pnpm install
+```
 
-## License
+#### 4. Em seguida, execute as migrations:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+npx prisma migrate dev --name init
+```
+
+#### 5. Gere o client Prisma:
+
+```bash
+npx prisma generate
+```
+
+#### 6. Aí sim, rode a aplicação do backend
+
+```bash
+pnpm start:dev
+```
+
+### Terminal do Frontend
+
+#### 7. Entre no diretório do Frontend
+
+```bash
+cd rocketlab-back
+cd frontend-compras
+pnpm install
+```
+
+#### 8. Rode a aplicação do frontend
+
+```bash
+pnpm dev
+```
+
+#### 9. Acesse a aplicação no navegador:
+
+```bash
+http://localhost:5173
+```
+
+## 🧠 Aprendizados
+
+Durante o desenvolvimento do projeto foi possível:
+
+- Praticar a criação de API RESTful com NestJS.
+
+- Trabalhar com Prisma ORM e banco SQLite.
+
+- Trabalhar com Styled-Components para estilização moderna.
+
+- Criar e consumir APIs no React utilizando Axios.
+
+- Trabalhar com o fluxo completo: CRUD + Carrinho de Compras.
+
+## 🤝 Contribuição
+
+Se quiser contribuir, sinta-se à vontade! 🎉
+
+## 👨‍💻 Contato
+
+<a href="https://github.com/MatheusVelame">
+  <img src="https://avatars.githubusercontent.com/MatheusVelame" width="100px;" alt="Foto de Matheus"/><br>
+  <sub>
+    <b>Matheus V. Pessoa</b>
+  </sub>
+</a>
