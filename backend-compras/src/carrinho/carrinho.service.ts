@@ -19,6 +19,19 @@ export class CarrinhoService {
     });
   }
 
+  async atualizarQuantidade(itemId: number, quantidade: number) {
+  return this.prisma.itemCarrinho.update({
+    where: { id: itemId },
+    data: { quantidade },
+  });
+}
+
+async removerItem(itemId: number) {
+  return this.prisma.itemCarrinho.delete({
+    where: { id: itemId },
+  });
+}
+
   async visualizarCarrinho(carrinhoId: number) {
     return this.prisma.carrinho.findUnique({
       where: { id: carrinhoId },

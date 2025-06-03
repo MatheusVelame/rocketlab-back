@@ -22,7 +22,6 @@ const Title = styled.h2`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
   &::before {
     content: '🛒';
     font-size: 1.2em;
@@ -54,7 +53,6 @@ const Item = styled.li`
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease;
-  
   &:hover {
     background: #e9ecef;
     transform: translateX(5px);
@@ -73,12 +71,59 @@ const ItemName = styled.span`
 const ItemDetails = styled.span`
   color: #7f8c8d;
   margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
+const QuantityControl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  button {
+    background: #00b894;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #019875;
+    }
+  }
+
+  span {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
 `
 
 const Price = styled.span`
   font-weight: 700;
   color: #27ae60;
   font-size: 1.1rem;
+  margin-right: 1rem;
+`
+
+const RemoveButton = styled.button`
+  background: #e74c3c;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #c0392b;
+  }
 `
 
 const FinalizarButton = styled.button`
@@ -93,12 +138,10 @@ const FinalizarButton = styled.button`
   width: 100%;
   margin-top: 1rem;
   transition: all 0.3s ease;
-  
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
   }
-  
   &:active {
     transform: translateY(0);
   }
@@ -147,6 +190,25 @@ const Carrinho: React.FC<Props> = ({ carrinhoId, refresh, finalizarCompra }) => 
     return itens.reduce((total, item) => total + item.produto.preco * item.quantidade, 0)
   }
 
+  const atualizarQuantidade = async (itemId: number, novaQuantidade: number) => {
+    if (novaQuantidade <= 0) {
+      removerItem(itemId);
+      return;
+    }
+    await api.patch(`/carrinho/${carrinhoId}/item/${itemId}`, {
+      quantidade: novaQuantidade,
+    })
+    const atualizados = itens.map(item =>
+      item.id === itemId ? { ...item, quantidade: novaQuantidade } : item
+    )
+    setItens(atualizados)
+  }
+
+  const removerItem = async (itemId: number) => {
+    await api.delete(`/carrinho/${carrinhoId}/item/${itemId}`)
+    setItens(itens.filter(item => item.id !== itemId))
+  }
+
   return (
     <Container>
       <Title>Carrinho de Compras</Title>
@@ -160,10 +222,16 @@ const Carrinho: React.FC<Props> = ({ carrinhoId, refresh, finalizarCompra }) => 
                 <ItemInfo>
                   <ItemName>{item.produto.nome}</ItemName>
                   <ItemDetails>
-                    {item.quantidade}x R$ {item.produto.preco.toFixed(2)}
+                    <QuantityControl>
+                      <button onClick={() => atualizarQuantidade(item.id, item.quantidade - 1)}>-</button>
+                      <span>{item.quantidade}</span>
+                      <button onClick={() => atualizarQuantidade(item.id, item.quantidade + 1)}>+</button>
+                    </QuantityControl>
+                    x R$ {item.produto.preco.toFixed(2)}
                   </ItemDetails>
                 </ItemInfo>
                 <Price>R$ {(item.produto.preco * item.quantidade).toFixed(2)}</Price>
+                <RemoveButton onClick={() => removerItem(item.id)}>Excluir</RemoveButton>
               </Item>
             ))}
           </ItemList>
