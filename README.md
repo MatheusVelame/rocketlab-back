@@ -52,7 +52,7 @@ git clone https://github.com/MatheusVelame/rocketlab-back.git
 
 ### 💾 Configuração do banco de dados
 
-#### 1. No diretório backend-compras, crie um arquivo **.env**, com o seguinte conteúdo:
+#### 1. No diretório backend-compras, crie um arquivo *.env*, com o seguinte conteúdo:
 
 ```bash
 DATABASE_URL="file:./dev.db"
