@@ -1,4 +1,4 @@
-# 🛒 Sistema de Compras Online - NestJS + Prisma + React
+# 🛒 Sistema de Compras Online - NestJS (Typescript) + Prisma + React
 
 Este é um projeto completo de um sistema de compras online, desenvolvido com as seguintes tecnologias:
 
