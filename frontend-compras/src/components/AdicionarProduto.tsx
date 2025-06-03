@@ -71,21 +71,23 @@ interface Props {
 
 const AdicionarProduto: React.FC<Props> = ({ onProdutoAdicionado }) => {
   const [nome, setNome] = useState('');
-  const [preco, setPreco] = useState(0);
+  const [preco, setPreco] = useState('');
   const [descricao, setDescricao] = useState('');
 
   const adicionar = async () => {
-    if (!nome || preco <= 0 || !descricao) {
-      alert('Preencha todos os campos!');
-      return;
-    }
+  const precoNumero = parseFloat(preco);
+  if (!nome || precoNumero <= 0 || !descricao) {
+    alert('Preencha todos os campos!');
+    return;
+  }
 
-    await api.post('/produtos', { nome, preco, descricao });
-    setNome('');
-    setPreco(0);
-    setDescricao('');
-    onProdutoAdicionado();
-  };
+  await api.post('/produtos', { nome, preco: precoNumero, descricao });
+  setNome('');
+  setPreco('');
+  setDescricao('');
+  onProdutoAdicionado();
+};
+
 
   return (
     <Container>
@@ -101,8 +103,9 @@ const AdicionarProduto: React.FC<Props> = ({ onProdutoAdicionado }) => {
           type="number"
           placeholder="Preço"
           value={preco}
-          onChange={(e) => setPreco(parseFloat(e.target.value))}
+          onChange={(e) => setPreco(e.target.value)}
         />
+
         <Input
           type="text"
           placeholder="Descrição"

@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
@@ -13,7 +11,7 @@ const Container = styled.div`
 const Title = styled.h2`
   color: #2c3e50;
   margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 600;
   text-align: center;
 `
@@ -166,6 +164,38 @@ const EditInput = styled.input`
   }
 `
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`
+
+const Modal = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 400px;
+`
+
+const ModalTitle = styled.h3`
+  margin-bottom: 1rem;
+  color: #2c3e50;
+`
+
+const ModalButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+`
+
 interface Produto {
   id: number
   nome: string
@@ -183,6 +213,7 @@ const ProdutoList: React.FC<Props> = ({ adicionarAoCarrinho, refresh, onRefresh 
   const [produtos, setProdutos] = useState<Produto[]>([])
   const [editando, setEditando] = useState<Produto | null>(null)
   const [busca, setBusca] = useState<string>("")
+  const [produtoParaExcluir, setProdutoParaExcluir] = useState<Produto | null>(null)
 
   const carregarProdutos = () => {
     api.get("/produtos").then((res) => setProdutos(res.data))
@@ -280,7 +311,7 @@ const ProdutoList: React.FC<Props> = ({ adicionarAoCarrinho, refresh, onRefresh 
                     Adicionar ao Carrinho
                   </ActionButton>
                   <ActionButton onClick={() => setEditando(produto)}>Editar</ActionButton>
-                  <ActionButton variant="danger" onClick={() => deletarProduto(produto.id)}>
+                  <ActionButton variant="danger" onClick={() => setProdutoParaExcluir(produto)}>
                     Excluir
                   </ActionButton>
                 </ButtonGroup>
@@ -289,6 +320,25 @@ const ProdutoList: React.FC<Props> = ({ adicionarAoCarrinho, refresh, onRefresh 
           </ProductCard>
         ))}
       </ProductGrid>
+
+      {produtoParaExcluir && (
+        <Overlay>
+          <Modal>
+            <ModalTitle>Deseja mesmo excluir "{produtoParaExcluir.nome}"?</ModalTitle>
+            <ModalButtons>
+              <ActionButton variant="danger" onClick={async () => {
+                await deletarProduto(produtoParaExcluir.id)
+                setProdutoParaExcluir(null)
+              }}>
+                Confirmar
+              </ActionButton>
+              <ActionButton onClick={() => setProdutoParaExcluir(null)}>
+                Cancelar
+              </ActionButton>
+            </ModalButtons>
+          </Modal>
+        </Overlay>
+      )}
     </Container>
   )
 }

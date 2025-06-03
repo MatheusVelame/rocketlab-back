@@ -85,7 +85,7 @@ function App() {
     <GlobalContainer>
       <Container>
         <Header>
-          <Title>🛍️ Sistema de Compras</Title>
+          <Title>🛍️ Vshop</Title>
           <Subtitle>Sua loja online completa</Subtitle>
         </Header>
 
